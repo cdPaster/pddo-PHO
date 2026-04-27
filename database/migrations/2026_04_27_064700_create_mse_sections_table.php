@@ -11,8 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('encounter_mse_findings', function (Blueprint $table) {
+        Schema::create('mse_sections', function (Blueprint $table) {
             $table->id();
+            $table->string('code', 100);
+            $table->string('name', 150);
+            $table->integer('sort_order')->default(0);
             $table->timestamps();
         });
     }
@@ -22,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('encounter_mse_findings');
+        Schema::dropIfExists('mse_sections');
     }
 };

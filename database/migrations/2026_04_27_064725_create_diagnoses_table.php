@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('diagnoses', function (Blueprint $table) {
             $table->id();
+            $table->string('code', 50);
+            $table->enum('coding_system', ['icd10', 'dsm5', 'other'])->default('icd10');
+            $table->string('description', 255);
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }

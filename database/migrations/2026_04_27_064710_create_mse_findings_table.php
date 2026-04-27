@@ -11,11 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('review_system_findings', function (Blueprint $table) {
+        Schema::create('mse_findings', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('review_system_category_id')->constrained('review_system_categories')->cascadeOnDelete();
-            $table->string('name', 100);
+            $table->foreignId('mse_section_id')->constrained('mse_sections')->cascadeOnDelete();
+            $table->string('group_name', 150)->nullable();
+            $table->string('finding_name', 150);
+            $table->string('finding_code', 150)->nullable();
             $table->integer('sort_order')->default(0);
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }
@@ -25,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('review_system_findings');
+        Schema::dropIfExists('mse_findings');
     }
 };

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('encounter_no', 50)->unique();
 
             $table->foreignId('patient_id')->constrained('patients')->cascadeOnDelete();
-            $table->foreignId('provider_id')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('provider_id')->nullable()->constrained('providers')->nullOnDelete();
             $table->foreignId('facility_id')->nullable()->constrained('facilities')->nullOnDelete();
 
             $table->dateTime('consultation_datetime');
@@ -50,7 +50,6 @@ return new class extends Migration
             $table->foreignId('updated_by')->nullable()->constrained('users')->nullOnDelete();
 
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 

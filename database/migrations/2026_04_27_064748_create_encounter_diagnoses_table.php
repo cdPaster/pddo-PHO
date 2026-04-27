@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('encounter_diagnoses', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('encounter_id')->constrained('encounters')->cascadeOnDelete();
+            $table->foreignId('diagnosis_id')->nullable()->constrained('diagnoses')->nullOnDelete();
+            $table->string('diagnosis_text', 255);
+            $table->enum('diagnosis_type', ['primary', 'secondary', 'working', 'final'])->default('primary');
+            $table->text('notes')->nullable();
             $table->timestamps();
         });
     }

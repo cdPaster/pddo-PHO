@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('medicine_dispenses', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('patient_id')->constrained('patients')->cascadeOnDelete();
+            $table->foreignId('encounter_id')->nullable()->constrained('encounters')->nullOnDelete();
+            $table->foreignId('dispensed_by_provider_id')->nullable()->constrained('providers')->nullOnDelete();
+            $table->dateTime('dispensed_at')->nullable();
+            $table->text('remarks')->nullable();
             $table->timestamps();
         });
     }

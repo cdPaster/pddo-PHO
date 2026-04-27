@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('labaratory_requests', function (Blueprint $table) {
+        Schema::create('encounter_mse_findings', function (Blueprint $table) {
             $table->id();
             $table->foreignId('encounter_id')->constrained('encounters')->cascadeOnDelete();
-            $table->string('request_name', 150);
-            $table->text('details')->nullable();
-            $table->enum('status', ['pending', 'requested', 'completed', 'cancelled'])->default('pending');
-            $table->dateTime('requested_at')->nullable();
-            $table->dateTime('completed_at')->nullable();
+            $table->foreignId('mse_finding_id')->constrained('mse_findings')->cascadeOnDelete();
+            $table->boolean('is_present')->default(false);
+            $table->string('remarks', 255)->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('labaratory_requests');
+        Schema::dropIfExists('encounter_mse_findings');
     }
 };

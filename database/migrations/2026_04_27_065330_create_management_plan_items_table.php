@@ -11,14 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('labaratory_requests', function (Blueprint $table) {
+        Schema::create('management_plan_items', function (Blueprint $table) {
             $table->id();
             $table->foreignId('encounter_id')->constrained('encounters')->cascadeOnDelete();
-            $table->string('request_name', 150);
+            $table->enum('plan_category', ['medication', 'laboratory', 'psychotherapy', 'referral', 'follow_up', 'education', 'other']);
+            $table->string('item_name', 150);
             $table->text('details')->nullable();
-            $table->enum('status', ['pending', 'requested', 'completed', 'cancelled'])->default('pending');
-            $table->dateTime('requested_at')->nullable();
-            $table->dateTime('completed_at')->nullable();
+            $table->integer('sort_order')->default(0);
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('labaratory_requests');
+        Schema::dropIfExists('management_plan_items');
     }
 };
